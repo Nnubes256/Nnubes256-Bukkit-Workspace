@@ -1,0 +1,7 @@
+name: Minesweeper Reloaded
+main: io.github.nnubes256.minesweeperreloaded.Minesweeper
+version: 0.0.3
+commands:
+    ms:
+        description: Main command of Minesweeper Reloaded.
+        usage: /ms <subcommand>
