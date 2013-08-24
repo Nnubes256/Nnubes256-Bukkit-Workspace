@@ -8,14 +8,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <licenses>
-        <license>
-            <name>GNU GENERAL PUBLIC LICENSE - Version 3, 29 June 2007</name>
-            <url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
     <repositories>
         <repository>
             <id>bukkit-repo</id>
@@ -26,6 +18,14 @@
             <url>http://maven.sk89q.com/repo</url>
         </repository>
     </repositories>
+
+    <licenses>
+        <license>
+            <name>GNU GENERAL PUBLIC LICENSE - Version 3, 29 June 2007</name>
+            <url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <dependencies>
         <dependency>
