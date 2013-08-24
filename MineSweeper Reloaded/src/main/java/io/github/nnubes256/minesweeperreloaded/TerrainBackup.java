@@ -1,3 +1,13 @@
+/*
+* This is a modification of the terrain backup handler of
+* the Minecraft Bukkit plugin 'ChessCraft', plugin made by desht,
+* and licensed under the GNU General Public License v3(GPLv3).
+*
+* TODO: License the whole project with same license.
+*
+* For a small talk about my opinion about licenses, go to DirectoryStructure.
+*/
+
 package io.github.nnubes256.minesweeperreloaded;
 
 import java.io.File;
