@@ -1,16 +1,8 @@
 /*
+*
 * This is a modification of the directory structure handler of
 * the Minecraft Bukkit plugin 'ChessCraft', plugin made by desht,
 * and licensed under the GNU General Public License v3(GPLv3).
-*
-* TODO: License the whole project with same license.
-*
-* Now, a small talk:
-* 'All rights reserved' sucks. A lot. Don't be jerk, and use
-* a GPL license or whavether similar for your projects. Everyone likes
-* to share its work. And if you do it, you'll be rewarded for it someday.
-* With code, improvements, and that stuff. You'll be able to catch bugs a
-* lot faster, especially when your project is famous.
 */
 
 package io.github.nnubes256.minesweeperreloaded;
@@ -62,10 +54,7 @@ public class DirectoryStructure {
             if (!oldSchematicsDir.renameTo(schematicsDir)) {
                 LogUtils.warning("Can't move " + oldSchematicsDir + " to " + schematicsDir); //$NON-NLS-1$ //$NON-NLS-2$
             }
-        } else {
-// [plugins]/ChessCraft/data/boards/schematics
-            createDir(schematicsDir);
-        }
+        } else createDir(schematicsDir);
     }
 
     public static File getSchematicsDirectory() {
@@ -218,3 +207,16 @@ public class DirectoryStructure {
     };
 */
 }
+
+/*
+* Now, a small talk:
+* 'All rights reserved' sucks. A lot. Don't be jerk, and use
+* a GPL license or whavether similar for your projects. Everyone likes
+* to share its work. And if you do it, you'll be rewarded for it someday.
+* With code, improvements, and that stuff. You'll be able to catch bugs a
+* lot faster, especially when your project is famous.
+*
+* Eric Raymond once said:
+* "Given enough eyeballs, all bugs are shallow"
+*/
+

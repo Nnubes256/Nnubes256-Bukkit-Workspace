@@ -12,13 +12,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.scheduler.BukkitTask;
 
 public class GameBlockListener implements Listener {
@@ -141,12 +139,12 @@ public class GameBlockListener implements Listener {
 			// be around anymore
             @SuppressWarnings("unused")
             BukkitTask removeTask = new DelayedArenaRemoveTask(this.plugin, mapArea, true).runTaskLater(this.plugin, 50);
-			Minesweeper.getMapAreas().remove(mapArea);
+			GameHandler.getMapAreas().remove(mapArea);
 		}
 	}
 	
 	private MapArea findArea(final Block block) {
-		final List<MapArea> mapAreas = Minesweeper.getMapAreas();
+		final List<MapArea> mapAreas = GameHandler.getMapAreas();
 		if (mapAreas != null) {
 			for (MapArea mapArea : mapAreas) {
 				if (mapArea.inArea(block)) {
@@ -158,7 +156,7 @@ public class GameBlockListener implements Listener {
 	}
 
     private MapArea findAreaTotal(final Block block) {
-        final List<MapArea> mapAreas = Minesweeper.getMapAreas();
+        final List<MapArea> mapAreas = GameHandler.getMapAreas();
         if (mapAreas != null) {
             for (MapArea mapArea : mapAreas) {
                 if (mapArea.inAreaTotal(block)) {

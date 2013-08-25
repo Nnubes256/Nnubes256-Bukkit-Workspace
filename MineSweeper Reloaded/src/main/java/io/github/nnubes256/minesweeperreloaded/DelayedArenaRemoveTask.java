@@ -1,5 +1,8 @@
 package io.github.nnubes256.minesweeperreloaded;
 
+import io.github.nnubes256.minesweeperreloaded.MapArea;
+import io.github.nnubes256.minesweeperreloaded.Minesweeper;
+import io.github.nnubes256.minesweeperreloaded.utils.TerrainBackup;
 import me.desht.dhutils.cuboid.Cuboid;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

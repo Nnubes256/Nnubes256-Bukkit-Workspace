@@ -8,9 +8,13 @@
 * For a small talk about my opinion about licenses, go to DirectoryStructure.
 */
 
-package io.github.nnubes256.minesweeperreloaded;
+package io.github.nnubes256.minesweeperreloaded.utils;
 
 import java.io.File;
+
+import io.github.nnubes256.minesweeperreloaded.DirectoryStructure;
+import io.github.nnubes256.minesweeperreloaded.MapArea;
+import io.github.nnubes256.minesweeperreloaded.Minesweeper;
 import me.desht.dhutils.cuboid.Cuboid;
 import me.desht.dhutils.LogUtils;
 import me.desht.dhutils.TerrainManager;

@@ -1,4 +1,6 @@
 /*
+ * Minesweeper Reloaded v0.0*/
+/*
  * Minesweeper Plugin v0.4 by covertbagel for CraftBukkit 1060
  * 5 September 2011
  * Licensed Under GPLv3
@@ -6,7 +8,8 @@
 
 package io.github.nnubes256.minesweeperreloaded;
 
-import me.desht.dhutils.TerrainManager;
+import io.github.nnubes256.minesweeperreloaded.utils.ArenaBuilder;
+import io.github.nnubes256.minesweeperreloaded.utils.TerrainBackup;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -24,7 +27,7 @@ public class MapArea {
 	final private int y;
 	final private int[] info;
     protected final MapArea self = this;
-    protected final Cuboid area;
+    public final Cuboid area;
     protected final Location pos1;
     protected Location pos2 = null;
     private int mapHash;
@@ -34,8 +37,6 @@ public class MapArea {
 	private int remainingBlocks;
     private final boolean isArena;
     private boolean lost = false;
-    private TerrainManager tm;
-    private String terrainFileName;
 
 	/**
      * Creates a map instance in a <code>location</code> where the map will be generated with a size and mine numbers,
@@ -165,12 +166,11 @@ public class MapArea {
     }
 
     public void init() {
-        Minesweeper.getMapAreas().add(self);
+        GameHandler.getMapAreas().add(self);
         if(isArena) {
-            Minesweeper.getArenas().put(name, self);
+            GameHandler.getArenas().put(name, self);
         }
         if(Minesweeper.wep != null && Minesweeper.isWEEnabled) {
-            terrainFileName = getName();
             TerrainBackup.save(self);
         }
     }
@@ -178,30 +178,30 @@ public class MapArea {
     public void setup(final Material material) {
         // place lots of the specified material below
         for (int i = 0; i < 6; i++) {
-            placeLayer(getLocation().clone(), i, info[Minesweeper.SIZE] + 4, material.getId(), (byte) 0);
+            ArenaBuilder.placeLayer(getLocation().clone(), i, info[Minesweeper.SIZE] + 4, material.getId(), (byte) 0);
         }
 
         // place lots of air above
         for (int i = 0; i < PALETTE.length; i++) {
-            placeLayer(getLocation().clone(), -i, info[Minesweeper.SIZE] + 2, Material.AIR.getId(), (byte) 0);
+            ArenaBuilder.placeLayer(getLocation().clone(), -i, info[Minesweeper.SIZE] + 2, Material.AIR.getId(), (byte) 0);
         }
 
         // place torches around the outside of the area
-        placeLayer(getLocation().clone(), 0, info[Minesweeper.SIZE] + 2, Material.TORCH.getId(), (byte) 5);
-        placeLayer(getLocation().clone(), 0, info[Minesweeper.SIZE], Material.AIR.getId(), (byte) 0);
+        ArenaBuilder.placeLayer(getLocation().clone(), 0, info[Minesweeper.SIZE] + 2, Material.TORCH.getId(), (byte) 5);
+        ArenaBuilder.placeLayer(getLocation().clone(), 0, info[Minesweeper.SIZE], Material.AIR.getId(), (byte) 0);
 
         // place bottom layer of TNT
-        placeLayer(getLocation().clone(), 3, info[Minesweeper.SIZE], Material.TNT.getId(), (byte) 0);
+        ArenaBuilder.placeLayer(getLocation().clone(), 3, info[Minesweeper.SIZE], Material.TNT.getId(), (byte) 0);
 
         // generate and place random map
-        final int[] map = generateMap(info[Minesweeper.MINES], info[Minesweeper.SIZE]);
-        placeMap(getLocation().clone(), 2, info[Minesweeper.SIZE], map);
+        final int[] map = ArenaBuilder.generateMap(info[Minesweeper.MINES], info[Minesweeper.SIZE]);
+        ArenaBuilder.placeMap(getLocation().clone(), 2, info[Minesweeper.SIZE], map);
 
         // place top layer of sand
-        placeLayer(getLocation().clone(), 1, info[Minesweeper.SIZE], Material.SAND.getId(), (byte) 0);
+        ArenaBuilder.placeLayer(getLocation().clone(), 1, info[Minesweeper.SIZE], Material.SAND.getId(), (byte) 0);
 
         // place wool blocks and signs at corners to identify colors
-        placePalettes(getLocation().clone(), info[Minesweeper.SIZE]);
+        ArenaBuilder.placePalettes(getLocation().clone(), info[Minesweeper.SIZE]);
     }
 
     public void setup(final Material material, final HashMap<String,Boolean> args) {
@@ -218,36 +218,36 @@ public class MapArea {
         // We want obsidian walls?
         if(withWalls) {
             for (int i = -PALETTE.length + 1; i < 7; i++) {
-                placeLayer(location.clone(), i, info[SIZE] + 4, Material.OBSIDIAN.getId(), (byte) 0);
+                ArenaBuilder.placeLayer(location.clone(), i, info[SIZE] + 4, Material.OBSIDIAN.getId(), (byte) 0);
             }
         }
 
         // place lots of the specified material below
         for (int i = 0; i < 6; i++) {
-            placeLayer(getLocation().clone(), i, info[Minesweeper.SIZE] + 4, material.getId(), (byte) 0);
+            ArenaBuilder.placeLayer(getLocation().clone(), i, info[Minesweeper.SIZE] + 4, material.getId(), (byte) 0);
         }
 
         // place lots of air above
         for (int i = 0; i < PALETTE.length; i++) {
-            placeLayer(getLocation().clone(), -i, info[Minesweeper.SIZE] + 2, Material.AIR.getId(), (byte) 0);
+            ArenaBuilder.placeLayer(getLocation().clone(), -i, info[Minesweeper.SIZE] + 2, Material.AIR.getId(), (byte) 0);
         }
 
         // place torches around the outside of the area
-        placeLayer(getLocation().clone(), 0, info[Minesweeper.SIZE] + 2, Material.TORCH.getId(), (byte) 5);
-        placeLayer(getLocation().clone(), 0, info[Minesweeper.SIZE], Material.AIR.getId(), (byte) 0);
+        ArenaBuilder.placeLayer(getLocation().clone(), 0, info[Minesweeper.SIZE] + 2, Material.TORCH.getId(), (byte) 5);
+        ArenaBuilder.placeLayer(getLocation().clone(), 0, info[Minesweeper.SIZE], Material.AIR.getId(), (byte) 0);
 
         // place bottom layer of TNT
-        placeLayer(getLocation().clone(), 3, info[Minesweeper.SIZE], Material.TNT.getId(), (byte) 0);
+        ArenaBuilder.placeLayer(getLocation().clone(), 3, info[Minesweeper.SIZE], Material.TNT.getId(), (byte) 0);
 
         // generate and place random map
-        final int[] map = generateMap(info[Minesweeper.MINES], info[Minesweeper.SIZE]);
-        placeMap(getLocation().clone(), 2, info[Minesweeper.SIZE], map);
+        final int[] map = ArenaBuilder.generateMap(info[Minesweeper.MINES], info[Minesweeper.SIZE]);
+        ArenaBuilder.placeMap(getLocation().clone(), 2, info[Minesweeper.SIZE], map);
 
         // place top layer of sand
-        placeLayer(getLocation().clone(), 1, info[Minesweeper.SIZE], Material.SAND.getId(), (byte) 0);
+        ArenaBuilder.placeLayer(getLocation().clone(), 1, info[Minesweeper.SIZE], Material.SAND.getId(), (byte) 0);
 
         // place wool blocks and signs at corners to identify colors
-        placePalettes(getLocation().clone(), info[Minesweeper.SIZE]);
+        ArenaBuilder.placePalettes(getLocation().clone(), info[Minesweeper.SIZE]);
     }
 
    /**
