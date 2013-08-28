@@ -7,3 +7,18 @@ commands:
     ms:
         description: Main command of Minesweeper Reloaded.
         usage: /ms <subcommand>
+permissions:
+    minesweeper.play:
+        description: Allows players to play.
+    minesweeper.game.create:
+        description: Allows to create a quickgame.
+    minesweeper.arena.create:
+        description: Allows to create an arena.
+    minesweeper.arena.reset:
+        description: Allows to reset an arena.
+    minesweeper.arena.tp:
+        description: Allows to teleport to an arena.
+    minesweeper.arena.vitrify:
+        description: Allows to vitrify an arena, making it disappear on the next game.
+    minesweeper.items:
+        description: Allows getting the items used to play.
