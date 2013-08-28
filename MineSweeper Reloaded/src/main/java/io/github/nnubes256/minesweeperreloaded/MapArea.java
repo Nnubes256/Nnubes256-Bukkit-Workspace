@@ -32,7 +32,7 @@ public class MapArea {
 	private String name = null;
     private World world = null;
 	private int remainingBlocks;
-    private final boolean isArena;
+    private boolean isArena;
     private boolean lost = false;
     private TerrainManager tm;
     private String terrainFileName;
@@ -306,6 +306,7 @@ public class MapArea {
 	public void vitrify() {
 		this.location = null;
 		this.name = null;
+        this.isArena = false;
 	}
 	// TODO Understand these methods XD
 	public void reset() {
