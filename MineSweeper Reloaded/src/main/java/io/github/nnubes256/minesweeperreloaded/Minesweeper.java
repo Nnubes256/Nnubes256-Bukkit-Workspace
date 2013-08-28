@@ -82,8 +82,8 @@ public class Minesweeper extends JavaPlugin {
 	private static final String ARENA_WILL_RESET = "[MineSweeper] Arena %s will automatically reset in %d seconds";
     private static final String[] ABOUT = {
             ChatColor.DARK_AQUA + "-----------------" + ChatColor.GOLD +" About " + ChatColor.DARK_AQUA + "-----------------",
-            ChatColor.GOLD + "MineSweeper Reloaded" + ChatColor.AQUA +" v0.0.1 "+ ChatColor.GRAY +" by "+ ChatColor.AQUA + "Nnubes256"+ ChatColor.GRAY +".",
-            ChatColor.GRAY + "A rewrite of " + ChatColor.GOLD + "MineSweeper" + ChatColor.GRAY + " by " + ChatColor.GOLD + "covertbagel " + ChatColor.GRAY + ".",
+            ChatColor.GOLD + "MineSweeper Reloaded" + ChatColor.AQUA +" v0.0.4"+ ChatColor.GRAY +" by"+ ChatColor.AQUA + " Nnubes256"+ ChatColor.GRAY +".",
+            ChatColor.GRAY + "A rewrite of" + ChatColor.GOLD + " MineSweeper" + ChatColor.GRAY + " by" + ChatColor.GOLD + " covertbagel " + ChatColor.GRAY + ".",
             ChatColor.GOLD + "      :::" + ChatColor.BLUE + " ::::    ::::   ::::::::  ",
             ChatColor.GOLD + "     :+:" + ChatColor.BLUE + "  +:+:+: :+:+:+ :+:    :+: ",
             ChatColor.GOLD + "    +:+" + ChatColor.BLUE + "   +:+ +:+:+ +:+ +:+        ",
@@ -152,16 +152,14 @@ public class Minesweeper extends JavaPlugin {
 				// If there aren't more args...
 				if(args.length == 1) {
 					sender.sendMessage(ChatColor.DARK_AQUA + "----- " + ChatColor.GOLD + "Quick Game" + ChatColor.DARK_AQUA + " -----");
-					sender.sendMessage(ChatColor.GOLD + "/ms " + ChatColor.AQUA + "quickgame create:" + ChatColor.GRAY + " create a quick game.");
+					sender.sendMessage(ChatColor.GOLD + "/ms quickgame" + ChatColor.AQUA + " create " + ChatColor.GRAY + "(small|medium|big)" + ChatColor.AQUA + ":" + ChatColor.GRAY + " create a quick game.");
 					sender.sendMessage(ChatColor.DARK_AQUA + "----------------------");
 					return true;
 				// Oh, there were...what a shame XD
 				// Create a goddamit quick game(use-and-trash)
 				} else if(args[1].equalsIgnoreCase("create")){
 					if (canPlay && sender.hasPermission("minesweeper.game.create") && sender instanceof Player) {
-                        if(args[2] == null) {
-                            return false;
-                        }
+                        if(args.length != 3) return false;
 						sender.sendMessage("Trying to create game...");
 						String sizeOfQuickGame = args[2];
 						return gameCreate(sender, sizeOfQuickGame);
@@ -173,27 +171,22 @@ public class Minesweeper extends JavaPlugin {
 					return true;
 				} else {
 					sender.sendMessage(ChatColor.DARK_AQUA + "------ " + ChatColor.GOLD + "Quick Game" + ChatColor.DARK_AQUA + " ------");
-					sender.sendMessage(ChatColor.GOLD + "/ms quickgame"+ ChatColor.AQUA + " create:" + ChatColor.GRAY + " create a quick game.");
+					sender.sendMessage(ChatColor.GOLD + "/ms quickgame"+ ChatColor.AQUA + " create " + ChatColor.GRAY + "(small|medium|big)" + ChatColor.AQUA + ":" + ChatColor.GRAY + " create a quick game.");
 					sender.sendMessage(ChatColor.DARK_AQUA + "----------------------");
 					return true;
 				}
 			} else if(args[0].equalsIgnoreCase("arena")) {
 				if(args.length == 1) {
                     sender.sendMessage(ChatColor.DARK_AQUA + "--- " + ChatColor.GOLD + "Arena Management" + ChatColor.DARK_AQUA + " ---");
-                    sender.sendMessage(ChatColor.GOLD + "/ms arena" + ChatColor.AQUA + " create:" + ChatColor.GRAY + " create an arena.");
-                    sender.sendMessage(ChatColor.GOLD + "/ms arena" + ChatColor.AQUA + " reset:" + ChatColor.GRAY + " reset an arena.");
-                    sender.sendMessage(ChatColor.GOLD + "/ms arena" + ChatColor.AQUA + " tp:" + ChatColor.GRAY + " teleport to an arena.");
-                    sender.sendMessage(ChatColor.GOLD + "/ms arena" + ChatColor.AQUA + " vitrify:" + ChatColor.GRAY + " vitrifies an arena.");
+                    sender.sendMessage(ChatColor.GOLD + "/ms arena" + ChatColor.AQUA + " create " + ChatColor.GRAY + "<name> (small|medium|big)" + ChatColor.AQUA + ":" + ChatColor.GRAY + " create an arena.");
+                    sender.sendMessage(ChatColor.GOLD + "/ms arena" + ChatColor.AQUA + " reset " + ChatColor.GRAY + "<name>" + ChatColor.AQUA + ":"  + ChatColor.GRAY + " reset an arena.");
+                    sender.sendMessage(ChatColor.GOLD + "/ms arena" + ChatColor.AQUA + " tp " + ChatColor.GRAY + "<name>" + ChatColor.AQUA + ":"  + ChatColor.GRAY + " teleport to an arena.");
+                    sender.sendMessage(ChatColor.GOLD + "/ms arena" + ChatColor.AQUA + " vitrify " + ChatColor.GRAY + "<name>" + ChatColor.AQUA + ":"  + ChatColor.GRAY + " vitrifies an arena.");
                     sender.sendMessage(ChatColor.DARK_AQUA + "----------------------");
 					return true;
 				} else if(args[1].equalsIgnoreCase("create")) {
 					if (canPlay && sender.hasPermission("minesweeper.arena.create") && sender instanceof Player) {
-                        if(args[2] == null) {
-                            return false;
-                        }
-                        if(args[3] == null) {
-                            return false;
-                        }
+                        if(args.length != 4) return false;
 						String[] arenaCreateArguments = {args[2],args[3]};
 						return arenaCreate(sender, arenaCreateArguments);
                     } else if(sender instanceof ConsoleCommandSender) {
@@ -204,9 +197,7 @@ public class Minesweeper extends JavaPlugin {
 					return true;
 				} else if(args[1].equalsIgnoreCase("reset")) {
 					if (canPlay && sender.hasPermission("minesweeper.arena.reset")) {
-                        if(args[2] == null) {
-                            return false;
-                        }
+                        if(args.length != 3) return false;
 						String arenaToReset = args[2];
 						return arenaReset(sender, arenaToReset);
 					}
@@ -214,9 +205,7 @@ public class Minesweeper extends JavaPlugin {
 					return true;
 				} else if(args[1].equalsIgnoreCase("tp")){
 					if(canPlay && sender.hasPermission("minesweeper.arena.tp") && sender instanceof Player) {
-                        if(args[2] == null) {
-                            return false;
-                        }
+                        if(args.length != 3) return false;
 						String arenaToTeleport = args[2];
 						return arenaTeleport(sender, arenaToTeleport);
 					} else if(sender instanceof ConsoleCommandSender) {
@@ -226,9 +215,7 @@ public class Minesweeper extends JavaPlugin {
                     return true;
 				} else if(args[1].equalsIgnoreCase("vitrify")) {
 					if (canPlay && sender.hasPermission("minesweeper.arena.vitrify")) {
-                        if(args[2] == null) {
-                            return false;
-                        }
+                        if(args.length != 3) return false;
 						String arenaToVitrify = args[2];
 						return arenaVitrify(sender, arenaToVitrify);
 					}
