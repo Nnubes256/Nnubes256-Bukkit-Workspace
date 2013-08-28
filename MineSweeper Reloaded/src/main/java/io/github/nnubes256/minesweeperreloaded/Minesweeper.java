@@ -98,7 +98,7 @@ public class Minesweeper extends JavaPlugin {
     public static Boolean isWEEnabled;
     protected static WorldEditPlugin wep;
     private Plugin we;
-	private GameBlockListener blockListener;
+	private BlockUpdateListener blockListener;
 	private static final List<MapArea> mapAreas = new ArrayList<MapArea>();
 	private static final HashMap<String, MapArea> arenas = new HashMap<String, MapArea>();
     private static Minesweeper instance;
@@ -107,7 +107,7 @@ public class Minesweeper extends JavaPlugin {
 	public void onEnable() {
         setInstance(this);
 		// setup block listener
-		blockListener = new GameBlockListener(this);
+		blockListener = new BlockUpdateListener(this);
 		PluginManager pluginManager = getServer().getPluginManager();
 		pluginManager.registerEvents(blockListener, this);
         we = pluginManager.getPlugin("WorldEdit");
@@ -138,7 +138,6 @@ public class Minesweeper extends JavaPlugin {
                 sender.sendMessage(ABOUT);
                 return true;
 			} else if(args[0].equalsIgnoreCase("?") || args[0].equalsIgnoreCase("help")) {
-				// TODO: Do the goddamit help
                 sender.sendMessage(ChatColor.DARK_AQUA + "-------- " + ChatColor.GOLD + "Help" + ChatColor.DARK_AQUA + " --------");
                 sender.sendMessage(ChatColor.GOLD + "/ms " + ChatColor.AQUA + "quickgame:" + ChatColor.GRAY + " QuickGame commands.");
                 sender.sendMessage(ChatColor.GOLD + "/ms " + ChatColor.AQUA + "arena:" + ChatColor.GRAY + " Arena Commands.");

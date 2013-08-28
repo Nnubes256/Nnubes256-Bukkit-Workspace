@@ -21,10 +21,10 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.scheduler.BukkitTask;
 
-public class GameBlockListener implements Listener {
+public class BlockUpdateListener implements Listener {
 	private final Minesweeper plugin;
 	
-	public GameBlockListener(Minesweeper instance) {
+	public BlockUpdateListener(Minesweeper instance) {
 		super();
 		plugin = instance;
 	}
